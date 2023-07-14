@@ -61,15 +61,34 @@ public class Scenarios extends BaseTest {
         Assert.assertEquals(eThanksPage.getText(),"THANK YOU FOR YOUR ORDER");
         driver.quit();
 
-
-
-
-
-
     }
 
     @Test
     public void Scenario2Opencart(){
+        String password = faker.internet().password();
+
+        open("http://opencart.abstracta.us/");
+        click(lMyAccountO);
+        click(lRegisterO);
+        scrollBy(300);
+
+        sendKeys(lFirstNameO,faker.name().firstName());
+        sendKeys(lLastNameO,faker.name().lastName());
+        sendKeys(lEMailO,faker.internet().emailAddress());
+        sendKeys(lTelephoneO,faker.phoneNumber().cellPhone());
+        sendKeys(lPasswordO,password);
+        sendKeys(lPasswordConfirmO,password);
+        click(lPrivPolicyO);
+        click(lContinueBtnO);
+
+        WebElement eCongratsPageO = driver.findElement(lCongratsPageO);
+        Assert.assertTrue(eCongratsPageO.getText().contains("Congratulations!"));
+
+        click(lMyAccountO);
+        click(lLogOutO);
+
+        WebElement eLogoutPage0 = driver.findElement(lLogoutPage0);
+        Assert.assertTrue(eLogoutPage0.getText().contains("You have been logged off your account."));
 
     }
 
